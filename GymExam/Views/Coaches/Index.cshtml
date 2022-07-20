@@ -1,0 +1,91 @@
+﻿@model IEnumerable<GymExam.Models.Coach>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Тренерский состав</h1>
+
+@if (User.IsInRole("admin") || (User.IsInRole("moderator"))) // если у пользователя есть роль модератора или администратора - показать ссылку
+                        {
+                         <p>
+    <a asp-action="Create">Create New</a>
+</p>
+                        }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainingExperience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specialization)
+            </th>
+           @* <th>
+                @Html.DisplayNameFor(model => model.Workouts)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+            <div>
+                  @item.Birthday.ToString("MM/dd/yyyy")
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainingExperience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialization)
+            </td>
+            @* <td>
+                @Html.DisplayFor(modelItem => item.Workouts)
+            </td>*@
+            <td>
+                 @if (User.IsInRole("admin") || (User.IsInRole("moderator"))) // если у пользователя есть роль модератора или администратора - показать ссылку
+                        {
+                           <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

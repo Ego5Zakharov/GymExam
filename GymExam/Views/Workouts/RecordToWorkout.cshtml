@@ -1,0 +1,29 @@
+﻿@using GymExam.Controllers;
+@{
+    ViewData["Title"] = "RecordToWorkout";
+}
+
+   <div class="text-center">
+    <h1>RecordToWorkout</h1>
+ 
+@{
+    Random gen = new Random();
+
+
+    DateTime RandomDay()
+    {
+        DateTime start = new DateTime(2022, 07, 1);
+        int range = (DateTime.Today - start).Days;
+        return start.AddDays(gen.Next(range));
+    }
+    var day = RandomDay().ToString("dd.MM.yyyy");
+    <p>
+        Вы были записаны на @day
+    </p>
+    
+  
+     <a class="nav-link text-dark" asp-area="" asp-controller="Workouts" asp-action="Index">Вернуться к тренировкам</a>
+     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Вернуться на главную</a>
+   }
+    </div>
+

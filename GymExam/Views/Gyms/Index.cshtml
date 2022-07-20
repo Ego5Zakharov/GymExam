@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GymExam.Models.Gym>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (User.IsInRole("admin") || (User.IsInRole("moderator"))) // если у пользователя есть роль модератора или администратора - показать ссылку
+                        {
+                         <p>
+    <a asp-action="Create">Create New</a>
+</p>
+                        }
+<h1>Спортивные залы</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (User.IsInRole("admin") || (User.IsInRole("moderator"))) // если у пользователя есть роль модератора или администратора - показать ссылку
+                        {
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
